@@ -3,191 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invila Financial Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; color: #1e293b; }
         .finance-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
         .gold-bright { color: #fbbf24; }
-        input { font-size: 1.15rem !important; font-weight: 700 !important; transition: all 0.3s ease; }
-        .chart-container { position: relative; height: 350px; width: 100%; }
-        
+        .chart-container { position: relative; height: 320px; width: 100%; }
+        input { font-size: 1.1rem !important; font-weight: 700 !important; }
+        .saving-box { background: linear-gradient(135deg, #059669 0%, #064e3b 100%); }
         /* Table Styles */
-        .table-container { overflow-x: auto; border-radius: 1.5rem; border: 1px solid #e2e8f0; background: white; }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
-        th { background-color: #f8fafc; color: #64748b; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; padding: 1rem; text-align: right; border-bottom: 2px solid #f1f5f9; }
-        td { padding: 1rem; text-align: right; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
-        tr:hover td { background-color: #f0f9ff; }
-        .text-pdam { color: #0f172a; font-weight: 700; }
-        .text-invila { color: #059669; font-weight: 700; }
+        .table-ceo { width: 100%; border-collapse: collapse; background: white; border-radius: 1.5rem; overflow: hidden; }
+        .table-ceo th { background: #f8fafc; padding: 1rem; font-size: 0.7rem; text-transform: uppercase; color: #64748b; text-align: right; border-bottom: 2px solid #f1f5f9; }
+        .table-ceo td { padding: 1rem; text-align: right; border-bottom: 1px solid #f8fafc; font-size: 0.95rem; }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-4 md:p-8">
 
     <div class="max-w-6xl mx-auto space-y-8">
         
         <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-200 overflow-hidden">
-            <div class="p-8 bg-slate-50 border-b border-slate-100">
-                <h1 class="text-2xl font-black text-slate-800 italic uppercase italic">Simulasi Finansial SPAM Invila™</h1>
-                <p class="text-slate-500 text-sm font-medium italic">Perbandingan Akumulasi Biaya Tradisional vs Invila WaaS</p>
+            <div class="p-8 border-b border-slate-100 bg-slate-50 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-black text-slate-800 italic uppercase tracking-tighter">Analisis Efisiensi Biaya Air</h1>
+                    <p class="text-slate-500 text-sm font-medium italic">Skema Zero CAPEX: PDAM vs Invila™ WaaS</p>
+                </div>
+                <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                    Adjust Harga Invila: 2% / Tahun
+                </div>
             </div>
 
             <div class="p-8 grid md:grid-cols-3 gap-6">
-                <div>
-                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Volume (m³/hari)</label>
-                    <input type="number" id="vol_total" value="2000" oninput="updateDashboard()" class="w-full border-2 border-slate-200 p-3 rounded-xl outline-none focus:border-blue-600 italic">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">Kapasitas (m³/hari)</label>
+                    <input type="number" id="vol_total" value="2000" oninput="updateDashboard()" class="w-full border-2 border-slate-200 p-4 rounded-2xl outline-none focus:border-blue-600 shadow-inner italic">
                 </div>
-                <div>
-                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Tarif PDAM (Rp/m³)</label>
-                    <input type="number" id="pdam_price" value="14600" oninput="updateDashboard()" class="w-full border-2 border-slate-200 p-3 rounded-xl outline-none focus:border-blue-600 italic">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">Tarif PDAM (Rp/m³)</label>
+                    <input type="number" id="pdam_price" value="14600" oninput="updateDashboard()" class="w-full border-2 border-slate-200 p-4 rounded-2xl outline-none focus:border-blue-600 shadow-inner italic">
                 </div>
-                <div>
-                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Jasa Invila (Rp/m³)</label>
-                    <input type="number" id="invila_price" value="6900" oninput="updateDashboard()" class="w-full bg-blue-50 border-2 border-blue-200 p-3 rounded-xl outline-none focus:border-blue-600 italic text-blue-700">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">Tarif Dasar Invila (Rp/m³)</label>
+                    <input type="number" id="invila_price" value="6900" oninput="updateDashboard()" class="w-full bg-blue-50 border-2 border-blue-200 p-4 rounded-2xl outline-none focus:border-blue-600 text-blue-700 shadow-inner italic">
+                </div>
+            </div>
+
+            <div class="p-8 grid md:grid-cols-2 gap-6 bg-slate-50">
+                <div class="saving-box rounded-[2rem] p-8 text-white shadow-2xl relative overflow-hidden border-b-8 border-emerald-900">
+                    <p class="text-xs font-bold uppercase opacity-80 mb-2 italic tracking-widest">Total Saving (5 Tahun)</p>
+                    <div id="five_year_saving" class="text-4xl md:text-5xl font-black italic tracking-tighter">Rp 0</div>
+                </div>
+                <div class="finance-card rounded-[2rem] p-8 text-white shadow-xl border-b-8 border-slate-900">
+                    <p class="text-xs font-bold uppercase gold-bright mb-2 italic tracking-widest">Aset Gratis dari Invila™</p>
+                    <div id="asset_value" class="text-4xl font-black gold-bright italic tracking-tighter">Rp 0</div>
                 </div>
             </div>
         </div>
 
         <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-200 p-8">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-lg font-extrabold text-slate-800 uppercase italic">Grafik Akumulasi Biaya (5 Tahun)</h2>
-                <div class="flex gap-4 text-[10px] font-bold uppercase">
-                    <span class="flex items-center gap-1"><span class="w-3 h-3 bg-slate-900 rounded"></span> Tradisional</span>
-                    <span class="flex items-center gap-1"><span class="w-3 h-3 bg-emerald-500 rounded"></span> Invila WaaS</span>
-                </div>
-            </div>
+            <h2 class="text-sm font-extrabold text-slate-800 uppercase italic mb-8 tracking-widest">Visualisasi Akumulasi Biaya Operasional (Tahun 1-5)</h2>
             <div class="chart-container">
                 <canvas id="costChart"></canvas>
             </div>
         </div>
 
-        <div class="table-container shadow-xl">
-            <table id="financeTable">
+        <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-200 overflow-hidden">
+            <table class="table-ceo">
                 <thead>
                     <tr>
                         <th style="text-align: left;">Tahun</th>
-                        <th>Capex Tradisional</th>
-                        <th>Opex Tradisional</th>
-                        <th>Opex Invila WaaS</th>
-                        <th>Akumulasi Tradisional</th>
-                        <th>Akumulasi Invila</th>
+                        <th>Tarif Invila (Adj 2%)</th>
+                        <th>Biaya PDAM (Accum)</th>
+                        <th>Biaya Invila (Accum)</th>
+                        <th class="bg-emerald-50 text-emerald-700">Net Saving</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    </tbody>
+                <tbody id="table_body"></tbody>
             </table>
+        </div>
+
+        <div class="text-center pb-10">
+            <button onclick="kirimWA()" class="w-full md:w-auto bg-slate-900 hover:bg-black text-white px-16 py-6 rounded-2xl text-xl font-black transition transform active:scale-95 shadow-2xl uppercase italic tracking-tighter">
+                Konsultasi SPAM via WhatsApp
+            </button>
         </div>
     </div>
 
     <script>
+        // Instance Grafik (Global)
         let myChart;
 
         function updateDashboard() {
+            // Mengambil Data Langsung dari Input
             const vol = parseFloat(document.getElementById('vol_total').value) || 0;
-            const pdamPrice = parseFloat(document.getElementById('pdam_price').value) || 0;
-            const invilaPrice = parseFloat(document.getElementById('invila_price').value) || 0;
-
-            const lps = vol / 86.4;
-            const capexTradisional = lps * 350000000; // Rp 350jt/LPS
-            const annualOpexPdam = pdamPrice * vol * 30 * 12;
-            const annualOpexInvila = invilaPrice * vol * 30 * 12;
-
-            let labels = ['Tahun 0', 'Thn 1', 'Thn 2', 'Thn 3', 'Thn 4', 'Thn 5'];
-            let dataTradisional = [capexTradisional];
-            let dataInvila = [0]; // Zero Capex di awal
-            
-            let tableHtml = '';
+            const pdamTariff = parseFloat(document.getElementById('pdam_price').value) || 0;
+            const invilaBaseTariff = parseFloat(document.getElementById('invila_price').value) || 0;
             const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
 
-            for (let i = 0; i <= 5; i++) {
-                if (i > 0) {
-                    // Eskalasi 2% per tahun
-                    const factor = Math.pow(1.02, i - 1);
-                    dataTradisional.push(dataTradisional[i-1] + (annualOpexPdam * factor));
-                    dataInvila.push(dataInvila[i-1] + (annualOpexInvila * factor));
-                }
+            // 1. Info Aset (CAPEX)
+            const lps = vol / 86.4;
+            const assetValue = lps * 350000000;
+            document.getElementById('asset_value').innerText = fmt.format(assetValue).replace("Rp", "Rp ");
 
+            // 2. Simulasi Finansial 5 Tahun
+            let chartLabels = [];
+            let chartDataPdam = [];
+            let chartDataInvila = [];
+            let tableHtml = '';
+            
+            let currentInvilaTariff = invilaBaseTariff;
+            let currentPdamTariff = pdamTariff; // Asumsi PDAM flat, atau bisa disesuaikan inflasi juga.
+            
+            let cumulativeSaving = 0;
+            let currentPdamAccum = 0;
+            let currentInvilaAccum = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                chartLabels.push('Thn ' + i);
+                
+                // Kalkulasi per tahun (Volume Harian * Tarif * 30 Hari * 12 Bulan)
+                const yearlyPdam = currentPdamTariff * vol * 30 * 12;
+                const yearlyInvila = currentInvilaTariff * vol * 30 * 12;
+
+                // Akumulasi
+                currentPdamAccum += yearlyPdam;
+                currentInvilaAccum += yearlyInvila;
+                cumulativeSaving += (yearlyPdam - yearlyInvila);
+
+                // Masukkan data ke array Grafik
+                chartDataPdam.push(currentPdamAccum);
+                chartDataInvila.push(currentInvilaAccum);
+
+                // Isi Tabel
                 tableHtml += `
                     <tr>
                         <td style="text-align: left; font-weight: 800;">Tahun ${i}</td>
-                        <td class="text-slate-400">${i === 0 ? fmt.format(capexTradisional) : '-'}</td>
-                        <td class="text-slate-600">${i === 0 ? '-' : fmt.format(annualOpexPdam * Math.pow(1.02, i-1))}</td>
-                        <td class="text-emerald-600 font-semibold">${i === 0 ? '-' : fmt.format(annualOpexInvila * Math.pow(1.02, i-1))}</td>
-                        <td class="text-pdam">${fmt.format(dataTradisional[i])}</td>
-                        <td class="text-invila">${fmt.format(dataInvila[i])}</td>
+                        <td class="italic font-semibold text-blue-600">Rp ${Math.round(currentInvilaTariff).toLocaleString('id-ID')}</td>
+                        <td>${fmt.format(currentPdamAccum)}</td>
+                        <td>${fmt.format(currentInvilaAccum)}</td>
+                        <td class="font-bold text-emerald-600 bg-emerald-50">${fmt.format(cumulativeSaving)}</td>
                     </tr>
                 `;
+
+                // Penyesuaian Harga Invila 2% untuk tahun berikutnya (Umur Alat 20 Tahun)
+                currentInvilaTariff *= 1.02; 
             }
 
-            document.getElementById('tableBody').innerHTML = tableHtml;
-            renderChart(labels, dataTradisional, dataInvila);
+            // Update Total Saving Utama (Highlight Hijau)
+            document.getElementById('five_year_saving').innerText = fmt.format(cumulativeSaving).replace("Rp", "Rp ");
+            document.getElementById('table_body').innerHTML = tableHtml;
+
+            // 3. Render Grafik Interaktif
+            renderChart(chartLabels, chartDataPdam, chartDataInvila);
         }
 
-        function renderChart(labels, dataTradisional, dataInvila) {
+        function renderChart(labels, dataPdam, dataInvila) {
             const ctx = document.getElementById('costChart').getContext('2d');
             
+            // Hancurkan grafik sebelumnya jika sudah ada agar tidak error saat update data
             if (myChart) {
                 myChart.destroy();
             }
 
+            // Buat Grafik Baru
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
-                        {
-                            label: 'Tradisional (Capex + Opex)',
-                            data: dataTradisional,
-                            borderColor: '#0f172a',
-                            backgroundColor: 'transparent',
-                            borderWidth: 4,
-                            pointBackgroundColor: '#fff',
-                            pointBorderColor: '#0f172a',
-                            pointRadius: 6,
-                            tension: 0.2
-                        },
-                        {
-                            label: 'Invila WaaS (Zero Capex)',
-                            data: dataInvila,
-                            borderColor: '#10b981',
-                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                            fill: true,
-                            borderWidth: 4,
-                            pointBackgroundColor: '#fff',
-                            pointBorderColor: '#10b981',
-                            pointRadius: 6,
-                            tension: 0.2
-                        }
+                        { label: 'Akumulasi Biaya PDAM', data: dataPdam, borderColor: '#0f172a', borderWidth: 4, pointBackgroundColor: '#fff', pointBorderColor: '#0f172a', pointRadius: 5, fill: false, tension: 0.1 },
+                        { label: 'Akumulasi Biaya Invila (WaaS)', data: dataInvila, borderColor: '#10b981', borderWidth: 4, pointBackgroundColor: '#fff', pointBorderColor: '#10b981', pointRadius: 5, backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, tension: 0.1 }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
+                    plugins: { legend: { position: 'bottom', labels: { font: { weight: 'bold', size: 10 } } } },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return 'Rp ' + (value / 1000000000).toFixed(1) + ' M';
-                                },
-                                font: { size: 10, weight: 'bold' }
-                            },
-                            grid: { color: '#f1f5f9' }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { size: 10, weight: 'bold' } }
-                        }
+                        y: { ticks: { callback: v => 'Rp ' + (v / 1000000000).toFixed(1) + ' M' }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
                     }
                 }
             });
         }
 
+        function kirimWA() {
+            const vol = document.getElementById('vol_total').value;
+            const saving = document.getElementById('five_year_saving').innerText;
+            const msg = `Halo Tim Invila, saya ingin konsultasi sistem SPAM.\n\nSimulasi saya menghasilkan potensi NET SAVING sebesar ${saving} dalam 5 tahun dengan kapasitas ${vol} m³/hari. Mohon atur waktu untuk diskusi teknis.`;
+            window.open(`https://wa.me/6285890135859?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Jalankan Kalkulasi Pertama Kali saat Load
         window.onload = updateDashboard;
     </script>
 </body>
