@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; color: #1e293b; }
+        .finance-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .gold-bright { color: #fbbf24; }
+        input { font-size: 1.25rem !important; font-weight: 700 !important; }
+        .label-header { font-size: 0.75rem; font-weight: 700; color: #64748b; letter-spacing: 0.1em; text-transform: uppercase; }
+        .value-display { font-size: 1.75rem; font-weight: 800; line-height: 1.2; }
+        @media (min-width: 768px) { .value-display { font-size: 2.1rem; } }
+        /* Tabel custom */
+        .table-finance { border-collapse: separate; border-spacing: 0; width: 100%; }
+        .table-finance th, .table-finance td { padding: 1rem; border-bottom: 1px solid #e2e8f0; text-align: right; }
+        .table-finance th { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; background-color: #f8fafc; }
+        .table-finance th:first-child, .table-finance td:first-child { text-align: left; }
+        .table-finance tr:last-child td { border-bottom: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto space-y-8">
+        
+        <div class="bg-white rounded-[2rem] shadow-xl border border-slate-200 overflow-hidden">
+            
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-slate-50">
+                <h1 class="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight italic uppercase">
+                    Simulasi Efisiensi SPAM Invila™
+                </h1>
+                <p class="text-slate-500 text-sm mt-1 font-medium italic">Analisis Penghematan Biaya Air & Optimasi Modal Kerja (Working Capital)</p>
+            </div>
+
+            <div class="p-6 md:p-10 space-y-8">
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="label-header mb-2 block italic">Volume Air (m³/hari)</label>
+                        <input type="number" id="vol_total" value="2000" oninput="runSimulation()" 
+                            class="w-full bg-white border-2 border-slate-200 p-3 rounded-xl outline-none focus:border-blue-600 transition italic shadow-sm">
+                    </div>
+                    <div>
+                        <label class="label-header mb-2 block italic">Tarif PDAM (Rp/m³)</label>
+                        <input type="number" id="pdam_price" value="14600" oninput="runSimulation()" 
+                            class="w-full bg-white border-2 border-slate-200 p-3 rounded-xl outline-none focus:border-blue-600 transition italic shadow-sm">
+                    </div>
+                    <div>
+                        <label class="label-header mb-2 block italic">Harga Jasa Invila (Rp/m³)</label>
+                        <input type="number" id="invila_price" value="6900" oninput="runSimulation()" 
+                            class="w-full bg-blue-50 border-2 border-blue-200 p-3 rounded-xl outline-none focus:border-blue-600 text-blue-800 transition italic shadow-sm">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="finance-card rounded-3xl p-6 md:p-8 text-white shadow-lg border-l-4 border-amber-500">
+                        <p class="label-header text-blue-300 mb-3 italic">Capex Terhindar (Modal Klien Tetap Utuh)</p>
+                        <div id="capex_value" class="value-display gold-bright italic tracking-tighter">Rp 0</div>
+                        <p class="mt-4 text-blue-200 text-[10px] font-bold uppercase tracking-wider italic">Investasi Sistem Ditanggung Invila™ (Tahun 0)</p>
+                    </div>
+
+                    <div class="bg-emerald-600 rounded-3xl p-6 md:p-8 text-white shadow-xl">
+                        <p class="label-header text-emerald-200 mb-3 italic">Gross Opex Saving (Tahun 1)</p>
+                        <div id="gross_opex_saving" class="value-display text-white italic tracking-tighter">Rp 0</div>
+                        <p class="mt-4 text-emerald-200 text-[10px] font-bold uppercase tracking-wider italic">Selisih Tarif PDAM vs Jasa Invila</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-2xl">
+                    <h3 class="text-blue-900 text-sm font-extrabold mb-3 uppercase italic tracking-widest text-center">POV Klien: Keuntungan Strategis</h3>
+                    <ul class="text-blue-800 text-[11px] md:text-[13px] space-y-2 font-semibold italic">
+                        <li class="flex items-start gap-2"><span>✓</span> <strong>Zero CAPEX:</strong> Perusahaan Anda menghemat modal milyaran rupiah di awal proyek.</li>
+                        <li class="flex items-start gap-2"><span>✓</span> <strong>Bebas Risiko Operasional:</strong> Biaya operasional SPAM (Invila WaaS) diproyeksikan dengan eskalasi terkendali (2%), di bawah potensi kenaikan tarif PDAM.</li>
+                        <li class="flex items-start gap-2"><span>✓</span> <strong>Net Saving Komulatif:</strong> Penghematan operasional langsung meningkatkan arus kas perusahaan.</li>
+                    </ul>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="kirimWA()" 
+                        class="w-full bg-slate-900 hover:bg-black text-white px-8 py-5 rounded-2xl text-xl font-extrabold transition shadow-lg transform active:scale-95 italic uppercase tracking-wider">
+                        Konsultasi SPAM via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-[2rem] shadow-xl border border-slate-200 overflow-hidden">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-slate-50">
+                <h2 class="text-xl font-bold text-slate-800 italic uppercase">Tabel Perincian Finansial (Komulatif Thn 0 - Thn 5)</h2>
+                <p class="text-slate-500 text-sm mt-1 font-medium italic">Dasar Perhitungan: Capex Rp 350jt/LPS, Eskalasi Opex 2%/Tahun</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="table-finance">
+                    <thead>
+                        <tr>
+                            <th>Tahun</th>
+                            <th>Capex Terhindar</th>
+                            <th>Opex Tradisional (PDAM)</th>
+                            <th>Opex Invila WaaS</th>
+                            <th>Total Biaya Terhindar</th>
+                            <th>Net Saving Komulatif</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Simulasi
+        let simulationData = [];
+
+        // Parameter Perhitungan
+        const capexPerLps = 350000000;
+        const inflationRate = 0.02; // Eskalasi Opex Invila 2% per tahun
+
+        function runSimulation() {
+            const vol = parseFloat(document.getElementById('vol_total').value) || 0;
+            const pdamPrice = parseFloat(document.getElementById('pdam_price').value) || 0;
+            const invilaPrice = parseFloat(document.getElementById('invila_price').value) || 0;
+
+            const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
+
+            // 1. Hitung Capex Terhindar (Tahun 0)
+            const lps = vol / 86.4;
+            const capexAvoided = lps * capexPerLps;
+
+            // 2. Hitung Gross Opex Saving (Tahun 1)
+            const grossOpexSaving = (pdamPrice - invilaPrice) * vol * 30 * 12;
+
+            // Update UI Utama
+            document.getElementById('capex_value').innerText = fmt.format(capexAvoided).replace("Rp", "Rp ");
+            document.getElementById('gross_opex_saving').innerText = fmt.format(grossOpexSaving).replace("Rp", "Rp ");
+
+            // 3. Jalankan Simulasi Tabel (Thn 0 - Thn 5)
+            simulationData = [];
+            let cumulativeSaving = 0;
+            let currentPdamPrice = pdamPrice;
+            let currentInvilaPrice = invilaPrice;
+
+            for (let year = 0; year <= 5; year++) {
+                let capex = (year === 0) ? capexAvoided : 0;
+                let opexPdam = 0;
+                let opexInvila = 0;
+
+                if (year > 0) {
+                    opexPdam = currentPdamPrice * vol * 30 * 12;
+                    opexInvila = currentInvilaPrice * vol * 30 * 12;
+                    cumulativeSaving += (opexPdam - opexInvila);
+
+                    // Update harga untuk tahun berikutnya (Eskalasi)
+                    currentPdamPrice *= (1 + inflationRate); // Anggap PDAM juga naik sesuai inflasi
+                    currentInvilaPrice *= (1 + inflationRate);
+                } else {
+                    // Tahun 0: Net Saving dihitung dari Capex terhindar
+                    cumulativeSaving = capexAvoided; 
+                }
+
+                simulationData.push({
+                    year: year,
+                    capex: capex,
+                    opexPdam: opexPdam,
+                    opexInvila: opexInvila,
+                    totalPdam: capex + opexPdam, // Total Biaya Terhindar
+                    netSaving: cumulativeSaving
+                });
+            }
+
+            // 4. Render Tabel
+            renderTable(simulationData, fmt);
+        }
+
+        function renderTable(data, fmt) {
+            const tableBody = document.getElementById('table_body');
+            tableBody.innerHTML = '';
+
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="font-bold">Thn ${row.year}</td>
+                    <td>${fmt.format(row.capex).replace("Rp", "Rp ")}</td>
+                    <td>${fmt.format(row.opexPdam).replace("Rp", "Rp ")}</td>
+                    <td>${fmt.format(row.opexInvila).replace("Rp", "Rp ")}</td>
+                    <td class="font-bold">${fmt.format(row.totalPdam).replace("Rp", "Rp ")}</td>
+                    <td class="font-bold text-emerald-600">${fmt.format(row.netSaving).replace("Rp", "Rp ")}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function kirimWA() {
+            const vol = document.getElementById('vol_total').value;
+            const msg = `Halo Tim Invila, saya ingin konsultasi sistem SPAM.\n\nUntuk:\n• Kapasitas: ${vol} m³/hari sesuai simulasi Volume (m³/hari)`;
+            window.open(`https://wa.me/6285890135859?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Jalankan kalkulasi saat load halaman
+        window.onload = runSimulation;
+    </script>
+</body>
+</html>
